@@ -203,6 +203,10 @@ jobs:
       if: env.ENABLE_KERNELSU == 'true'
       run: |
         cd $GITHUB_WORKSPACE/kernel_workspace/android-kernel
+        wget https://github.com/Sony-Kumano-Platform-Development/android_kernel_sony_sm8150/commit/48c3028675bd3f941344840e64c91541ca184a3c.patch
+        git config --global user.email "you@example.com"
+        git config --global user.name "Your Name"
+        git am 48c3028675bd3f941344840e64c91541ca184a3c.patch
         curl -LSs "https://raw.githubusercontent.com/ShionKanagawa/KernelSU/refs/heads/non-gki/kernel/setup.sh" | bash -s ${{ env.KERNELSU_TAG }}
         KSU_VERSION=$(cd KernelSU && expr $(/usr/bin/git rev-list --count HEAD) + 10200)
         echo "UPLOADNAME=-KernelSU_$KSU_VERSION" >> $GITHUB_ENV
